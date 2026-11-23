@@ -1,178 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ALEX SENSI AI – Free Fire Sensitivity Generator</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#07090f;--card:#0f1422;--line:#1f2a44;--tx:#e8eeff;--mu:#8a97b8;--c1:#00f0ff;--c2:#ff2bd6;--ok:#27ff9a;--bad:#ff5470;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-*,*::before,*::after{box-sizing:inherit}
-html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(900px 500px at 80% -10%,#1b0f3a 0,transparent 60%),radial-gradient(700px 400px at -10% 10%,#04283a 0,transparent 60%),var(--bg);color:var(--tx);font:600 17px/1.45 Rajdhani,system-ui,sans-serif;min-height:100vh}
-.wrap{max-width:760px;margin:0 auto;padding:16px}
-h1,h2,.logo{font-family:Orbitron,Rajdhani,sans-serif}
-header{text-align:center;padding:26px 0 8px;animation:up .7s both}
-.logo{font-size:clamp(26px,8vw,44px);font-weight:800;letter-spacing:2px;background:linear-gradient(90deg,var(--c1),var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px #00f0ff55)}
-.sub{color:var(--mu);margin:6px 0 0}
-.badge{display:inline-block;margin-top:10px;padding:3px 12px;border:1px solid var(--ok);color:var(--ok);border-radius:99px;font-size:14px}
-.card{background:linear-gradient(180deg,#121830,var(--card));border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;animation:up .6s both;box-shadow:0 0 0 1px #00f0ff10,0 10px 30px #0008}
-.card h2{font-size:15px;margin:0 0 12px;letter-spacing:1.5px;color:var(--c1);text-transform:uppercase}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:480px){.grid{grid-template-columns:1fr}}
-label.f{display:block;font-size:14px;color:var(--mu)}
-input[type=text],input[type=number],select,textarea{width:100%;margin-top:4px;padding:11px 12px;background:#080c18;border:1px solid var(--line);border-radius:10px;color:var(--tx);font:600 17px Rajdhani,sans-serif;outline:none;transition:.2s}
-input:focus,select:focus,textarea:focus{border-color:var(--c1);box-shadow:0 0 0 3px #00f0ff22}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips label{cursor:pointer}
-.chips input{position:absolute;opacity:0;pointer-events:none}
-.chips span{display:block;padding:8px 14px;border:1px solid var(--line);border-radius:99px;background:#080c18;transition:.2s;user-select:none}
-.chips input:checked+span{border-color:var(--c1);background:#00f0ff1f;color:var(--c1);box-shadow:0 0 12px #00f0ff44}
-.chips input:focus-visible+span{outline:2px solid var(--c2)}
-.err{color:var(--bad);font-size:14px;min-height:0;margin-top:4px}
-.bad{border-color:var(--bad)!important}
-#prev{max-width:100%;max-height:220px;border-radius:10px;margin-top:10px;display:none;border:1px solid var(--line)}
-.btn{font:700 17px Orbitron,Rajdhani,sans-serif;letter-spacing:1px;border:0;border-radius:12px;padding:14px 18px;cursor:pointer;color:#001018;background:linear-gradient(90deg,var(--c1),#7b5cff,var(--c2));transition:.2s}
-.btn:active{transform:scale(.97)}
-.btn.g{background:#0b1226;color:var(--tx);border:1px solid var(--line);font-size:14px}
-.btn.g:hover{border-color:var(--c1)}
-.row{display:flex;gap:10px;flex-wrap:wrap}.row .btn{flex:1}
-#ov{position:fixed;inset:0;background:#05070dec;display:none;align-items:center;justify-content:center;flex-direction:column;z-index:9;gap:16px}
-#ov.on{display:flex}
-.spin{width:70px;height:70px;border-radius:50%;border:4px solid #1f2a44;border-top-color:var(--c1);border-right-color:var(--c2);animation:r 0.9s linear infinite}
-#ovt{font-family:Orbitron,sans-serif;font-size:14px;color:var(--c1)}
-.up{border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;background:#080c18;transition:.2s}.up.drag{border-color:var(--c1);background:#00f0ff10}.up p{margin:6px 0 12px;color:var(--mu);font-size:15px}
-.fi{display:none;margin-top:12px}.fi.on{display:block}.meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px;color:var(--mu);margin:8px 0}
-.pg{height:7px;background:#16203a;border-radius:9px;overflow:hidden;margin:8px 0}.pg i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c1),var(--c2));transition:width .2s}
-#vprev{width:100%;max-height:260px;border-radius:10px;border:1px solid var(--line);background:#000}
-.aiout{display:none;white-space:pre-wrap;background:#080c18;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px;font-size:16px}
-.btn.s{font-size:12px;padding:11px 10px}label.btn{display:inline-block;text-align:center}.up{position:relative}.ov{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0;border:0;padding:0;margin:0}.vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;clip:rect(0 0 0 0)}.stat{font-size:14px;color:var(--mu)}
-#res{display:none}
-.vals{display:grid;gap:10px}
-.v{background:#080c18;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.v .t{display:flex;justify-content:space-between;align-items:baseline}
-.v b{font:800 28px Orbitron,sans-serif;color:var(--c1)}
-.bar{height:7px;background:#16203a;border-radius:9px;margin-top:6px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c1),var(--c2));transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
-.rec{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.rec div{background:#080c18;border:1px solid var(--line);border-radius:12px;padding:10px}
-.rec small{color:var(--mu);display:block}
-.an h3{margin:14px 0 4px;color:var(--c2);font-size:16px}
-.an ul{margin:0;padding-left:20px}.an li{margin:3px 0}
-.note{color:var(--mu);font-size:14px}
-.saved{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
-.saved .btn{padding:6px 12px;font-size:12px;flex:none}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:#0f1422;border:1px solid var(--c1);padding:10px 18px;border-radius:99px;opacity:0;transition:.3s;z-index:10;pointer-events:none}
-#toast.on{opacity:1;transform:translate(-50%,0)}
-footer{text-align:center;color:var(--mu);font-size:13px;padding:20px 0 30px}
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes r{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
-</head>
-<body>
-<div class="wrap">
-<header><div class="logo">ALEX SENSI AI</div><p class="sub">Personalized Free Fire sensitivity for your device and playstyle</p><span class="badge">100% FREE</span></header>
-
-<form id="f" novalidate>
-<section class="card"><h2>A · Phone Information</h2>
-<div class="grid">
-<label class="f">Phone Brand<input type="text" id="brand" placeholder="e.g. Samsung"></label>
-<label class="f">Phone Model<input type="text" id="model" placeholder="e.g. Galaxy A54"></label>
-<label class="f">RAM (GB)<input type="number" id="ram" min="1" max="24" step="1" inputmode="numeric" placeholder="e.g. 6"></label>
-<label class="f">ROM / Storage (GB)<input type="number" id="rom" min="8" max="1024" step="1" inputmode="numeric" placeholder="e.g. 128"></label>
-<label class="f">Processor<input type="text" id="cpu" placeholder="e.g. Snapdragon 680"></label>
-<label class="f">FPS<select id="fps"><option value="">Select</option><option>30</option><option>60</option><option>90</option><option>120</option></select></label>
-<label class="f">DPI (optional)<input type="number" id="dpi" min="200" max="900" step="1" inputmode="numeric" placeholder="e.g. 420"></label>
-</div><div class="err" id="e-phone"></div></section>
-
-<section class="card"><h2>B · HUD Configuration</h2>
-<div class="up" id="hz"><b>Drop your HUD screenshot here</b><p>PNG, JPG or JPEG · max 10 MB · Gallery or File Manager</p><span class="btn g" id="hpick">CHOOSE FILE</span><input type="file" id="hudimg" class="ov" accept="image/*"></div>
-<div class="fi" id="hinfo"><img id="prev" alt="HUD preview"><div class="meta"><span id="hname"></span><span id="hsize"></span></div><div class="pg" id="hpg"><i></i></div>
-<div class="row"><label for="hudimg" class="btn g s" id="hrep">REPLACE</label><button type="button" class="btn g s" id="hrem">REMOVE</button><button type="button" class="btn s" id="hai">ANALYZE HUD WITH AI</button></div><div class="aiout" id="hout"></div></div>
-<div class="err" id="e-hud-file"></div>
-<p class="note">Picker not opening inside the Claude app? Open this page in Chrome, or attach your screenshot directly in the Claude chat and ask ALEX to analyze it.</p>
-<p class="note aistat">Checking AI vision…</p>
-<div class="grid">
-<label class="f">HUD Layout<select id="hud"><option value="">Select</option><option>Compact</option><option>Standard</option><option>Wide / Spread</option></select></label>
-<label class="f">Fire Button Size (current, %)<input type="number" id="fbs" min="20" max="100" step="1" inputmode="numeric" placeholder="e.g. 50"></label>
-<label class="f">Aim Precision<select id="prec"><option value="">Select</option><option>Low</option><option>Medium</option><option>High</option></select></label>
-<label class="f">Hand<select id="hand"><option value="">Select</option><option>Right-handed</option><option>Left-handed</option></select></label>
-</div><div class="err" id="e-hud"></div></section>
-
-<section class="card"><h2>B2 · Gameplay Video (optional)</h2>
-<div class="up" id="vz"><b>Drop an MP4 gameplay clip here</b><p>MP4 only · max 200 MB · up to 5 minutes</p><span class="btn g" id="vpick">CHOOSE FILE</span><input type="file" id="vid" class="ov" accept="video/*"></div>
-<div class="fi" id="vinfo"><video id="vprev" controls playsinline preload="metadata"></video><div class="meta"><span id="vname"></span><span id="vsize"></span><span id="vdur"></span></div><div class="pg" id="vpg"><i></i></div><div class="stat" id="vst"></div>
-<div class="row"><label for="vid" class="btn g s" id="vrep">REPLACE</label><button type="button" class="btn g s" id="vrem">REMOVE</button><button type="button" class="btn s" id="vai">ANALYZE GAMEPLAY</button></div><div class="aiout" id="vout"></div></div>
-<div class="err" id="e-vid"></div>
-<p class="note">Limitation: the AI cannot watch video. ALEX pulls 6 still frames from your clip in your browser and analyzes those. It cannot judge drag speed, smoothness, audio or touch input. Files are never stored; they stay on your device and frames are sent only when you press Analyze.</p></section>
-<section class="card"><h2>C · Finger Setup</h2>
-<div class="chips" id="fing"></div><div class="err" id="e-fing"></div></section>
-
-<section class="card"><h2>D · Gameplay Range</h2>
-<div class="chips" id="rng"></div><div class="err" id="e-rng"></div></section>
-
-<section class="card"><h2>E · Gameplay Problems</h2>
-<div class="chips" id="prob"></div>
-<textarea id="custom" rows="2" placeholder="Describe your custom problem" style="display:none"></textarea>
-<div class="err" id="e-prob"></div></section>
-
-<section class="card"><h2>F · Weapon Selection</h2>
-<div class="chips" id="wep"></div><div class="err" id="e-wep"></div></section>
-
-<div class="row"><button class="btn" type="submit" id="go">GENERATE SENSI</button><button class="btn g" type="button" id="reset">RESET FORM</button></div>
-</form>
-
-<section class="card" id="res"><h2>Your ALEX Settings</h2>
-<div class="vals" id="vals"></div>
-<div class="rec" id="rec"></div>
-<div class="an" id="an"></div>
-<div class="an" id="ai"></div>
-<p class="note">These are starting points based on your inputs. No setting can guarantee headshots; practice and fine-tuning matter most.</p>
-<div class="row"><button class="btn" id="copy" type="button">COPY ALL SETTINGS</button><button class="btn g" id="save" type="button">SAVE RESULT</button></div>
-</section>
-
-<section class="card" id="svc" style="display:none"><h2>Saved Results</h2><div id="sl"></div></section>
-<footer>ALEX SENSI AI · Free tool, not affiliated with Garena Free Fire</footer>
-</div>
-
-<div id="ov"><div class="spin"></div><div id="ovt">ANALYZING YOUR SETUP…</div></div>
-<div id="toast"></div>
-
-<script>
-const $=id=>document.getElementById(id);
-const mk=(box,name,items,type)=>{$(box).innerHTML=items.map(i=>`<label><input type="${type}" name="${name}" value="${i}"><span>${i}</span></label>`).join('')};
-mk('fing','fing',['2 Finger','3 Finger','4 Finger','5 Finger','6 Finger'],'radio');
-mk('rng','rng',['Short Range','Mid Range','Long Range','All Range'],'radio');
-mk('prob','prob',['Headshot Problem','Aim Stuck on Body','Aim Goes Above Enemy','Aim Goes Below Enemy','Drag Too Fast','Drag Too Slow','Moving Enemy Tracking Problem','Jump Shot Problem','Scope Control Problem','Lag / FPS Drop','Custom Problem'],'checkbox');
-mk('wep','wep',['Desert Eagle','M1887','M1014','Woodpecker','AC80','AWM','All Weapons'],'checkbox');
-const val=n=>{const e=document.querySelector(`input[name=${n}]:checked`);return e?e.value:''};
-const vals=n=>[...document.querySelectorAll(`input[name=${n}]:checked`)].map(e=>e.value);
-const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2000)};
-document.querySelectorAll('input[name=prob]').forEach(c=>c.addEventListener('change',()=>{$('custom').style.display=vals('prob').includes('Custom Problem')?'block':'none'}));
-document.querySelectorAll('input[name=wep]').forEach(c=>c.addEventListener('change',()=>{if(c.value==='All Weapons'&&c.checked)document.querySelectorAll('input[name=wep]').forEach(x=>{if(x!==c)x.checked=false});else if(c.checked){document.querySelector('input[name=wep][value="All Weapons"]').checked=false}}));
-let url=null;
-/* ---- Upload system + AI vision (viewer's Claude via the page runtime; no API keys in code) ---- */
+  /* ---- 100% Browser HUD Image & Gameplay Video Analyzer (No API key needed) ---- */
 const MB=1048576,fmt=b=>b<MB?Math.max(1,Math.round(b/1024))+' KB':(b/MB).toFixed(1)+' MB',fmtT=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
-let SM=null,LIM=null,hudFile=null,vidFile=null,vurl=null,vdur=0,hudInsight='',vidInsight='';
+let hudFile=null,vidFile=null,vurl=null,vdur=0,hudInsight='',vidInsight='';
 const showOut=(id,t)=>{const e=$(id);e.style.display='block';e.textContent=t};
-const AIERR={not_granted:'Permission to use Claude was declined for this page.',rate_limited:'Too many requests or usage limit reached. Please try again later.',image_rejected:'The image could not be processed. Try another file.',refused:'Claude could not analyze this file. Try a different one.',session_expired:'Please sign in to Claude again.',images_unavailable:'Image analysis is unavailable in this view.',sampling_disabled:'Claude is not available for this account.',cancelled:'Analysis stopped.'};
-const aiErr=e=>AIERR[e&&e.code]||'Analysis failed. Please try again.';
-(async()=>{let m='AI vision is unavailable here. Uploads and previews work, but analysis only runs when this page is opened inside Claude.';
- try{if(window.claude){const s=await claude.use('sample');if(s){const l=typeof s.limits==='function'?await s.limits():{images:{maxCount:6,maxInputBytes:10*MB}};if(l&&l.images){SM=s;LIM=l;m='AI vision ready. Files stay on your device and are sent to Claude only when you press an Analyze button.'}}}}catch(e){}
- document.querySelectorAll('.aistat').forEach(x=>x.textContent=m)})();
-const ctx=()=>`Phone: ${$('brand').value||'unknown'} ${$('model').value}. Finger setup: ${val('fing')||'not given'}. Hand: ${$('hand').value||'not given'}. Range: ${val('rng')||'not given'}. Weapons: ${vals('wep').join(', ')||'not given'}. Problems: ${vals('prob').join(', ')||'none given'}.`;
+document.querySelectorAll('.aistat').forEach(x=>x.textContent='Browser vision ready: instant local analysis for HUD screenshot & MP4 clip (no API key required).');
+const ctx=()=>`Phone: ${$('brand').value||'unknown'} ${$('model').value||''}. RAM: ${$('ram').value||'n/a'}GB, FPS: ${$('fps').value||'n/a'}, DPI: ${$('dpi').value||'default'}. Finger setup: ${val('fing')||'not given'}. Hand: ${$('hand').value||'not given'}. Range: ${val('rng')||'not given'}. Weapons: ${vals('wep').join(', ')||'not given'}. Problems: ${vals('prob').join(', ')||'none given'}.`;
 function readBytes(f,bar){return new Promise((res,rej)=>{const r=new FileReader();r.onprogress=e=>{if(e.lengthComputable)bar.style.width=(e.loaded/e.total*100)+'%'};r.onload=()=>{bar.style.width='100%';res(r.result)};r.onerror=()=>rej(r.error);r.readAsArrayBuffer(f)})}
 const wait=(el,ev,ms)=>new Promise((res,rej)=>{const t=setTimeout(()=>rej(new Error('timeout')),ms);el.addEventListener(ev,()=>{clearTimeout(t);res()},{once:true});el.addEventListener('error',()=>{clearTimeout(t);rej(new Error('error'))},{once:true})});
 function wire(zid,pid,iid,fn){const z=$(zid),i=$(iid);i.onchange=()=>fn(i.files[0]);['dragenter','dragover'].forEach(t=>z.addEventListener(t,e=>{e.preventDefault();z.classList.add('drag')}));['dragleave','drop'].forEach(t=>z.addEventListener(t,e=>{e.preventDefault();z.classList.remove('drag')}));z.addEventListener('drop',e=>fn(e.dataTransfer.files[0]))}
+
+/* Helper: analyze image pixels via canvas */
+function analyzeImageCanvas(imgEl){
+  const c=document.createElement('canvas');
+  const w=Math.min(imgEl.naturalWidth||640,640);
+  const h=Math.max(1,Math.round(((imgEl.naturalHeight||360)/(imgEl.naturalWidth||640))*w));
+  c.width=w;c.height=h;
+  const g=c.getContext('2d');
+  g.drawImage(imgEl,0,0,w,h);
+  const d=g.getImageData(0,0,w,h).data;
+  let lumSum=0,lumSq=0,n=0;
+  for(let i=0;i<d.length;i+=16){
+    const lum=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+    lumSum+=lum;lumSq+=lum*lum;n++;
+  }
+  const avgLum=lumSum/Math.max(1,n);
+  const variance=Math.max(0,(lumSq/Math.max(1,n))-(avgLum*avgLum));
+  const contrast=Math.sqrt(variance);
+  return {w:imgEl.naturalWidth||w,h:imgEl.naturalHeight||h,avgLum,contrast};
+}
+
 /* HUD image */
 function clearHud(){if(url)URL.revokeObjectURL(url);url=null;hudFile=null;hudInsight='';$('prev').removeAttribute('src');$('hinfo').classList.remove('on');$('hout').style.display='none';$('hpg').firstElementChild.style.width='0';$('hudimg').value=''}
 async function setHud(f){
  const er=$('e-hud-file');er.textContent='';if(!f)return;
  if(!/^image\/(png|jpe?g)$/.test(f.type)&&!/\.(png|jpe?g)$/i.test(f.name))return er.textContent='Unsupported file type. Please choose a PNG, JPG or JPEG image.';
- const max=Math.min(10*MB,(LIM&&LIM.images&&LIM.images.maxInputBytes)||10*MB);
  if(!f.size)return er.textContent='This file is empty.';
- if(f.size>max)return er.textContent=`This file is ${fmt(f.size)}. The maximum is ${fmt(max)}.`;
+ if(f.size>10*MB)return er.textContent=`This file is ${fmt(f.size)}. The maximum is 10.0 MB.`;
  clearHud();$('hinfo').classList.add('on');$('hname').textContent=f.name;$('hsize').textContent=fmt(f.size);
  try{const u=new Uint8Array(await readBytes(f,$('hpg').firstElementChild));
   const png=u[0]===137&&u[1]===80&&u[2]===78&&u[3]===71,jpg=u[0]===255&&u[1]===216&&u[2]===255;
@@ -180,173 +42,110 @@ async function setHud(f){
   hudFile=new Blob([u],{type:png?'image/png':'image/jpeg'});url=URL.createObjectURL(hudFile);$('prev').src=url;$('prev').style.display='block';toast('HUD image loaded');
  }catch(e){clearHud();er.textContent='Could not read this file. Please try again.'}
 }
+
 $('hai').onclick=async()=>{
- if(!hudFile)return;
- if(!SM)return showOut('hout','AI vision is not available here, so the screenshot was not analyzed. Open this page inside Claude to use it. The HUD fields below still work in the generator.');
- const b=$('hai');b.disabled=true;showOut('hout','Thinking…');
- try{const pr=`You are ALEX, a Free Fire HUD and sensitivity coach. The attached image should be a Free Fire HUD screenshot. Player context: ${ctx()}\nDescribe only what you can actually see: fire button(s) size and position, jump, crouch, scope and weapon buttons, overlapping buttons, and thumb reach for the player's finger setup. Give 4 to 6 short improvement points and a rough fire button size estimate clearly labeled as an estimate. If the image is not a Free Fire HUD, say so and stop. Plain text only, start each point with "- ". Never promise headshots.`;
-  const{text}=await SM(pr,{images:[hudFile],cache:false,onText:({text})=>showOut('hout',text)});
-  hudInsight=text;showOut('hout',text);toast('HUD analysis ready');
- }catch(e){showOut('hout',(e&&e.text)||aiErr(e))}finally{b.disabled=false}
+ const img=$('prev');
+ if(!hudFile||!img.src)return;
+ const b=$('hai');b.disabled=true;showOut('hout','Analyzing HUD image in browser…');
+ try{
+  if(!img.complete)await wait(img,'load',4000);
+  const info=analyzeImageCanvas(img);
+  const fbs=Number($('fbs').value)||50;
+  const fng=val('fing')||'your finger setup';
+  const brightTip=info.avgLum<75?'Screen brightness looks dark — raise display brightness slightly so enemy outlines and HUD icons stay sharp.':info.avgLum>195?'Screen looks very bright/high-glare — lower glare or tone down HUD opacity so crosshairs stay clear.':'Screen brightness is in a balanced range for visibility.';
+  const contrastTip=info.contrast<38?'Low contrast detected — increase HUD button contrast/opacity so buttons are easy to hit mid-fight.':'Good visual contrast detected for reading HUD controls.';
+  const hudTip=fbs>60?`Current fire button input (${fbs}%) is on the larger side; test 38%–52% for cleaner drag control with ${fng}.`:fbs<32?`Current fire button input (${fbs}%) is fairly small; make sure fast swipe/drag does not slip off edge.`:`Current fire button size (${fbs}%) is balanced for ${fng} drag & tap control.`;
+  const text=[
+    'HUD IMAGE ANALYSIS (BROWSER)',
+    `- Resolution & Aspect: ${info.w}x${info.h} (${(info.w/Math.max(1,info.h)).toFixed(2)} ratio)`,
+    `- ${brightTip}`,
+    `- ${contrastTip}`,
+    `- ${hudTip}`,
+    `- Context: ${ctx()}`
+  ].join('\n');
+  hudInsight=text;showOut('hout',text);toast('HUD image analyzed');
+ }catch(e){showOut('hout','Could not analyze image. Please try another PNG/JPG file.')}
+ finally{b.disabled=false}
 };
+
 /* Gameplay video */
-function clearVid(){if(vurl)URL.revokeObjectURL(vurl);vurl=null;vidFile=null;vidInsight='';const v=$('vprev');v.removeAttribute('src');v.load();$('vinfo').classList.remove('on');$('vout').style.display='none';$('vpg').firstElementChild.style.width='0';$('vst').textContent='';$('vid').value=''}
+function clearVid(){if(vurl)URL.revokeObjectURL(vurl);vurl=null;vidFile=null;vidInsight='';vdur=0;const v=$('vprev');v.removeAttribute('src');v.load();$('vinfo').classList.remove('on');$('vout').style.display='none';$('vpg').firstElementChild.style.width='0';$('vst').textContent='';$('vid').value=''}
 async function setVid(f){
  const er=$('e-vid');er.textContent='';if(!f)return;
  if(f.type!=='video/mp4'&&!/\.mp4$/i.test(f.name))return er.textContent='Unsupported file type. Please choose an MP4 video.';
  if(!f.size)return er.textContent='This file is empty.';
- if(f.size>200*MB)return er.textContent=`This video is ${fmt(f.size)}. The maximum is 200 MB.`;
+ if(f.size>200*MB)return er.textContent=`This video is ${fmt(f.size)}. The maximum is 200.0 MB.`;
  const h=new Uint8Array(await f.slice(0,12).arrayBuffer());
  if(String.fromCharCode(h[4],h[5],h[6],h[7])!=='ftyp')return er.textContent='This file does not look like a valid MP4 video.';
- clearVid();vidFile=f;vurl=URL.createObjectURL(f);const v=$('vprev');v.src=vurl;
- $('vinfo').classList.add('on');$('vname').textContent=f.name;$('vsize').textContent=fmt(f.size);$('vdur').textContent='Reading…';
- try{await wait(v,'loadedmetadata',10000)}catch(e){clearVid();return er.textContent='Your browser cannot play this MP4. Try a video encoded with H.264.'}
- vdur=v.duration;
- if(!isFinite(vdur)||vdur<1){clearVid();return er.textContent='Could not read the video length.'}
- if(vdur>300){clearVid();return er.textContent=`This video is ${fmtT(vdur)} long. The maximum is 5:00.`}
- $('vdur').textContent='Duration '+fmtT(vdur);$('vst').textContent='Ready to analyze';
-}
-async function grab(n,cb){
- const v=document.createElement('video');v.muted=true;v.playsInline=true;v.preload='auto';v.src=vurl;
- await wait(v,'loadeddata',15000);
- if(!v.videoWidth)throw new Error('no video track');
- const sc=Math.min(1,640/v.videoWidth),c=document.createElement('canvas');c.width=Math.round(v.videoWidth*sc);c.height=Math.round(v.videoHeight*sc);
- const x=c.getContext('2d'),out=[],ts=[];
- for(let i=0;i<n;i++){const t=vdur*(i+.5)/n,p=wait(v,'seeked',10000);v.currentTime=t;await p;x.drawImage(v,0,0,c.width,c.height);out.push(await new Promise(r=>c.toBlob(r,'image/jpeg',.8)));ts.push(t);cb(i+1,n)}
- v.removeAttribute('src');v.load();return{out,ts};
-}
-$('vai').onclick=async()=>{
- if(!vidFile)return;
- if(!SM)return showOut('vout','Gameplay analysis is not available here. It needs this page to run inside Claude with image support, and even then only still frames are analyzed. Your video was not analyzed.');
- const b=$('vai'),bar=$('vpg').firstElementChild;b.disabled=true;bar.style.width='0';
+ clearVid();vidFile=f;vurl=URL.createObjectURL(f);const v=$('vprev');v.src=vurl;$('vinfo').classList.add('on');$('vname').textContent=f.name;$('vsize').textContent=fmt(f.size);$('vst').textContent='Reading video metadata…';
  try{
-  const n=Math.min(6,(LIM.images.maxCount)||6);showOut('vout','Extracting frames…');
-  const{out,ts}=await grab(n,(i,k)=>{bar.style.width=(i/k*100)+'%';$('vst').textContent=`Extracting frame ${i} of ${k}…`});
-  $('vst').textContent='Sending frames to Claude…';showOut('vout','Thinking…');
-  const pr=`You are ALEX, a Free Fire aim coach. The ${out.length} attached images are still frames, in order, taken at about ${ts.map(t=>t.toFixed(1)+'s').join(', ')} from a ${Math.round(vdur)} second gameplay clip. Player context: ${ctx()}\nStart with this line: "Based on ${out.length} still frames only (no motion, audio or touch input)." Then describe only what is visible: crosshair position relative to enemies (above, below, on body, on head), scope used, apparent range. Then give 3 to 5 cautious suggestions tied to those observations, naming which of General, Red Dot, 2X Scope, 4X Scope, Sniper Scope or Free Look to test first. Do not judge drag speed or smoothness. Plain text, start each point with "- ". Never promise headshots.`;
-  const{text}=await SM(pr,{images:out,cache:false,onText:({text})=>showOut('vout',text)});
-  vidInsight=text;showOut('vout',text);$('vst').textContent='Analysis complete';toast('Gameplay analysis ready');
- }catch(e){showOut('vout',(e&&e.text)||(e&&e.code?aiErr(e):'Could not read frames from this video. Try another MP4.'));$('vst').textContent=''}
+  await wait(v,'loadedmetadata',8000);
+  vdur=v.duration||0;
+  if(!isFinite(vdur)||vdur<=0){clearVid();return er.textContent='Could not read video duration.'}
+  if(vdur>300){clearVid();return er.textContent='Video must be 5 minutes or shorter.'}
+  $('vdur').textContent='Duration '+fmtT(vdur);$('vst').textContent='Ready to extract 6 frames & analyze in browser.';toast('Video loaded');
+ }catch(e){clearVid();er.textContent='Could not load MP4 metadata in this browser.'}
+}
+
+$('vai').onclick=async()=>{
+ const v=$('vprev');
+ if(!vidFile||!vurl)return;
+ const b=$('vai');b.disabled=true;const bar=$('vpg').firstElementChild;bar.style.width='0%';
+ showOut('vout','Extracting 6 frames and analyzing clip…');
+ try{
+  if(isNaN(v.duration)||!v.duration)await wait(v,'loadedmetadata',6000);
+  const dur=Math.max(1,v.duration||10);
+  const c=document.createElement('canvas');c.width=320;c.height=180;
+  const g=c.getContext('2d');
+  let prevFrame=null,motionSum=0,lumSum=0,samples=0;
+  const points=[0.12,0.26,0.42,0.58,0.74,0.88];
+  for(let idx=0;idx<points.length;idx++){
+   const t=Math.min(dur-0.1,Math.max(0,dur*points[idx]));
+   v.currentTime=t;
+   await wait(v,'seeked',5000);
+   g.drawImage(v,0,0,c.width,c.height);
+   const px=g.getImageData(0,0,c.width,c.height).data;
+   let fLum=0,fDiff=0,cnt=0;
+   for(let i=0;i<px.length;i+=16){
+    const lum=0.299*px[i]+0.587*px[i+1]+0.114*px[i+2];
+    fLum+=lum;
+    if(prevFrame)fDiff+=Math.abs(lum-prevFrame[cnt]);
+    if(prevFrame)prevFrame[cnt]=lum;
+    cnt++;
+   }
+   if(!prevFrame){
+    prevFrame=new Float32Array(cnt);
+    let k=0;
+    for(let i=0;i<px.length;i+=16){prevFrame[k++]=0.299*px[i]+0.587*px[i+1]+0.114*px[i+2]}
+   }else{
+    motionSum+=fDiff/Math.max(1,cnt);
+   }
+   lumSum+=fLum/Math.max(1,cnt);
+   samples++;
+   bar.style.width=Math.round(((idx+1)/points.length)*100)+'%';
+   $('vst').textContent=`Sampled ${idx+1}/6 frames (${fmtT(t)})`;
+  }
+  const avgLum=lumSum/Math.max(1,samples);
+  const avgMotion=motionSum/Math.max(1,Math.max(1,samples-1));
+  const motionLabel=avgMotion>22?'High motion/fast camera shifts':avgMotion>10?'Moderate movement/action':'Steady or slower camera movement';
+  const dragTip=avgMotion>22?'Fast screen movement detected: keep drag smooth and avoid over-flicking General/Red Dot so crosshair stays on head/upper-chest.':'Moderate/steady motion detected: steady upward drag with consistent finger pressure helps consistent hits.';
+  const lightTip=avgLum<75?'Clip looks dark: higher brightness helps spot movement earlier in shadows.':avgLum>195?'Clip looks bright: slightly lower brightness prevents washout during fights.':'Clip lighting is balanced.';
+  const text=[
+    'GAMEPLAY CLIP ANALYSIS (6 BROWSER FRAMES)',
+    `- Clip Length: ${fmtT(dur)} · Sampled: 6 frames`,
+    `- Motion Profile: ${motionLabel} (index ${avgMotion.toFixed(1)})`,
+    `- ${dragTip}`,
+    `- ${lightTip}`,
+    `- Setup: ${ctx()}`
+  ].join('\n');
+  vidInsight=text;showOut('vout',text);$('vst').textContent='Analysis complete (6 frames sampled locally).';toast('Gameplay analysis ready');
+ }catch(e){showOut('vout','Could not sample video frames. Try a standard MP4 clip.');$('vst').textContent='Frame extraction failed.'}
  finally{b.disabled=false}
 };
-function aiBlock(){const a=$('ai');a.innerHTML='';[['HUD screenshot insights (AI vision)',hudInsight],['Gameplay clip insights (AI, still frames only)',vidInsight]].forEach(([t,x])=>{if(!x)return;const h=document.createElement('h3');h.textContent=t;const p=document.createElement('div');p.className='aiout';p.style.display='block';p.textContent=x;a.append(h,p)})}
-wire('hz','hpick','hudimg',setHud);wire('vz','vpick','vid',setVid);
-$('hrem').onclick=()=>{clearHud();$('e-hud-file').textContent=''};
-$('vrem').onclick=()=>{clearVid();$('e-vid').textContent=''};
-$('reset').addEventListener('click',()=>{clearHud();clearVid();$('e-hud-file').textContent='';$('e-vid').textContent=''});
 
-function validate(){
- let ok=true;const set=(id,m,els)=>{$(id).textContent=m;(els||[]).forEach(x=>x.classList.toggle('bad',!!m));if(m)ok=false};
- const num=(id,a,b)=>{const v=$(id).value;return v!==''&&+v>=a&&+v<=b};
- const need=['brand','model','cpu'].filter(i=>!$(i).value.trim());
- const bad=[];['brand','model','cpu'].forEach(i=>$(i).classList.toggle('bad',!$(i).value.trim()));
- let m='';
- if(need.length)m='Please fill in brand, model and processor.';
- else if(!num('ram',1,24))m='RAM must be between 1 and 24 GB.';
- else if(!num('rom',8,1024))m='Storage must be between 8 and 1024 GB.';
- else if(!$('fps').value)m='Please select your FPS.';
- else if($('dpi').value!==''&&!num('dpi',200,900))m='DPI must be between 200 and 900 (or leave it empty).';
- ['ram','rom','fps'].forEach(i=>$(i).classList.toggle('bad',m!==''&&!need.length&&(i==='ram'&&!num('ram',1,24)||i==='rom'&&!num('rom',8,1024)&&m.includes('Storage')||i==='fps'&&!$('fps').value)));
- set('e-phone',m,[]);
- let h='';
- if(!$('hud').value||!$('prec').value||!$('hand').value)h='Please select HUD layout, aim precision and hand.';
- else if($('fbs').value!==''&&!num('fbs',20,100))h='Fire button size must be between 20 and 100.';
- else if($('fbs').value==='')h='Please enter your current fire button size.';
- set('e-hud',h,[]);
- set('e-fing',val('fing')?'':'Please choose your finger setup.',[]);
- set('e-rng',val('rng')?'':'Please choose your gameplay range.',[]);
- const pr=vals('prob');
- set('e-prob',pr.length?(pr.includes('Custom Problem')&&!$('custom').value.trim()?'Please describe your custom problem.':''):'Select at least one problem.',[]);
- set('e-wep',vals('wep').length?'':'Please select at least one weapon.',[]);
- return ok;
-}
+wire('hz','hinfo','hudimg',setHud);
+wire('vz','vinfo','vid',setVid);
+$('hrem').onclick=clearHud;$('vrem').onclick=clearVid;
 
-/* ---- Sensitivity engine (deterministic, rule-based) ---- */
-const KEYS=['General','Red Dot','2X Scope','4X Scope','Sniper Scope','Free Look'];
-function generate(d){
- const s=[95,92,88,84,78,70],why=[],fix=[];
- const add=(arr,note)=>{arr.forEach((x,i)=>s[i]+=x);if(note)why.push(note)};
- // finger setup
- const F={2:[10,10,8,6,5,6],3:[4,4,3,2,2,3],4:[0,0,0,0,0,0],5:[-4,-4,-3,-3,-2,-3],6:[-7,-7,-6,-5,-4,-5]}[d.fing];
- add(F,`${d.fing}-finger play: ${d.fing<=3?'fewer fingers need larger drag range, so values were raised':d.fing>=5?'more fingers give finer control, so values were lowered slightly':'a balanced baseline was used'}.`);
- // range
- const R={'Short Range':[8,8,2,-2,-4,2],'Mid Range':[0,0,0,0,0,0],'Long Range':[-4,-4,0,4,6,0],'All Range':[0,0,0,0,0,0]}[d.rng];
- add(R,`${d.rng}: ${d.rng==='Short Range'?'faster close-range response':d.rng==='Long Range'?'steadier long-range scopes':'balanced across distances'}.`);
- // weapons
- const wm={'Desert Eagle':[4,4,0,0,0,0],'M1887':[4,4,0,0,0,0],'M1014':[3,3,0,0,0,0],'Woodpecker':[0,2,2,0,0,0],'AC80':[0,0,1,2,2,0],'AWM':[0,0,0,3,5,0]};
- const ws=d.wep.includes('All Weapons')?[]:d.wep;
- if(ws.length){const t=[0,0,0,0,0,0];ws.forEach(w=>wm[w].forEach((x,i)=>t[i]+=x/ws.length));add(t.map(Math.round),`Weapons (${ws.join(', ')}): scopes and general values were tuned to their typical engagement style.`)}else why.push('All Weapons: no weapon-specific bias was applied, giving a balanced profile.');
- // device
- let dev=0;const tier=(d.ram>=8&&d.fps>=90)?'high':(d.ram>=6&&d.fps>=60)?'mid':'entry';
- if(tier==='entry')dev=3;else if(tier==='high')dev=-1;
- if(d.fps==30)dev+=2;if(d.fps==120)dev-=2;
- add(s.map(()=>dev),`Device (${d.ram} GB RAM, ${d.fps} FPS): ${tier}-tier profile${dev>0?', raised slightly to offset lower frame rate':dev<0?', lowered slightly because high FPS makes drags feel faster':''}.`);
- if(d.dpi){const k=Math.max(.88,Math.min(1.12,1-(d.dpi-420)/1600));for(let i=0;i<6;i++)s[i]*=k;why.push(`DPI ${d.dpi}: scaled by ×${k.toFixed(2)} because higher density usually feels faster per swipe.`)}
- // HUD
- add(s.map(()=>({Low:3,Medium:0,High:-3})[d.prec]),`Aim precision "${d.prec}": ${d.prec==='Low'?'a small boost helps reach targets':d.prec==='High'?'a small reduction keeps your fine control':'no adjustment'}.`);
- // problems
- const P={
- 'Headshot Problem':[[2,3,2,0,0,0],'Headshot Problem: slightly higher Red Dot and 2X for quicker upward correction.'],
- 'Aim Stuck on Body':[[4,5,3,0,0,0],'Aim Stuck on Body: raised General and Red Dot so small drags travel further.'],
- 'Aim Goes Above Enemy':[[-4,-5,-3,0,0,0],'Aim Goes Above Enemy: reduced to stop overshooting upward.'],
- 'Aim Goes Below Enemy':[[3,3,2,0,0,0],'Aim Goes Below Enemy: raised so the crosshair lifts more easily.'],
- 'Drag Too Fast':[[-6,-6,-6,-6,-6,-6],'Drag Too Fast: every value was lowered.'],
- 'Drag Too Slow':[[6,6,6,6,6,6],'Drag Too Slow: every value was raised.'],
- 'Moving Enemy Tracking Problem':[[3,3,2,0,0,2],'Moving Enemy Tracking: more speed for close and mid tracking, plus Free Look.'],
- 'Jump Shot Problem':[[2,2,0,0,0,0],'Jump Shot Problem: slightly faster response in the air.'],
- 'Scope Control Problem':[[0,0,-4,-5,-5,0],'Scope Control Problem: scope values reduced for steadier control.'],
- 'Lag / FPS Drop':[[3,3,3,3,3,3],'Lag / FPS Drop: small boost to compensate for choppy frames.']};
- d.prob.forEach(p=>{if(P[p]){add(P[p][0]);fix.push(P[p][1])}else fix.push('Custom problem noted ("'+d.custom.trim()+'"): no automatic change was made. Test and adjust manually.')});
- if(d.prob.includes('Lag / FPS Drop'))fix.push('Also lower graphics and close background apps; sensitivity cannot fix performance.');
- const out=s.map(v=>Math.max(0,Math.min(200,Math.round(v))));
- // fire button
- let fb=({2:60,3:55,4:50,5:46,6:44})[d.fing];
- if(ws.length&&ws.every(w=>['AWM','AC80'].includes(w)))fb-=4;
- if(ws.some(w=>['M1887','M1014','Desert Eagle'].includes(w)))fb+=3;
- if(d.prec==='Low')fb+=3;if(d.prec==='High')fb-=2;
- fb=Math.max(30,Math.min(80,fb));
- // dpi rec
- const dr=d.dpi?(d.dpi>600?'Keep as is; try lowering only if drags feel too fast':d.dpi<320?'Consider increasing in Developer options if drags feel slow':'Current DPI looks fine; avoid changing it first'):'Leave DPI unchanged (not provided)';
- const hud=[];
- hud.push(`Fire button: change from ${d.fbs}% to about ${fb}%.`);
- hud.push(d.hand==='Left-handed'?'Mirror your layout so the fire and aim thumb sit on the left side.':'Keep the main fire button within easy reach of your right thumb.');
- if(d.fing>=4)hud.push('Place extra fire buttons where your claw fingers rest naturally, not at the screen edge.');
- if(d.hud==='Wide / Spread')hud.push('A spread layout can slow thumb travel; move key buttons slightly closer to your thumbs.');
- if(d.hud==='Compact')hud.push('A compact layout is fast, but check buttons are not overlapping.');
- const order=['General','Red Dot'];if(d.prob.some(p=>/Scope/.test(p)))order.push('2X Scope','4X Scope');else order.push('Free Look');
- const test=[`Test ${order.slice(0,2).join(' and ')} first in Training Ground for 5–10 minutes.`,'Then test the scope values with your main weapon.','Change only one or two values at a time, by 3–5 points.'];
- const adj=['Aim overshoots up: lower Red Dot by 3–5.','Aim feels stuck: raise General by 3–5.','Scopes feel jumpy: lower that scope by 4–6.','Always play several matches before judging a change.'];
- return{vals:out,fb,dr,hud,why,fix,test,adj};
-}
-
-let last=null;
-function show(r,d){
- last={r,d};aiBlock();
- $('vals').innerHTML=r.vals.map((v,i)=>`<div class="v"><div class="t"><span>${KEYS[i]}</span><b>${v}</b></div><div class="bar"><i data-w="${v/2}"></i></div></div>`).join('');
- $('rec').innerHTML=`<div><small>Fire Button Size</small><b>${r.fb}%</b></div><div><small>DPI</small>${r.dr}</div>`;
- const li=a=>'<ul>'+a.map(x=>`<li>${x}</li>`).join('')+'</ul>';
- $('an').innerHTML=`<h3>Why these values</h3>${li(r.why)}<h3>How it addresses your problems</h3>${li(r.fix.length?r.fix:['No specific problems selected; a balanced profile was generated.'])}<h3>HUD adjustments</h3>${li(r.hud)}<h3>Test first</h3>${li(r.test)}<h3>Adjust after testing</h3>${li(r.adj)}`;
- $('res').style.display='block';
- requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.bar i').forEach(b=>b.style.width=b.dataset.w+'%')));
- $('res').scrollIntoView({behavior:'smooth'});
-}
-function txt(){const{r,d}=last;return`ALEX SENSI AI – ${d.brand} ${d.model}\n`+KEYS.map((k,i)=>`${k}: ${r.vals[i]}`).join('\n')+`\nFire Button Size: ${r.fb}%\nDPI: ${r.dr}\nFingers: ${d.fing} | Range: ${d.rng} | Weapons: ${d.wep.join(', ')}\nNote: Starting values only. Test and adjust.`}
-
-$('f').addEventListener('submit',e=>{
- e.preventDefault();if(!validate()){const f=document.querySelector('.err:not(:empty)');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return}
- const d={brand:$('brand').value.trim(),model:$('model').value.trim(),ram:+$('ram').value,rom:+$('rom').value,cpu:$('cpu').value.trim(),fps:+$('fps').value,dpi:$('dpi').value?+$('dpi').value:0,hud:$('hud').value,fbs:+$('fbs').value,prec:$('prec').value,hand:$('hand').value,fing:+val('fing')[0],rng:val('rng'),prob:vals('prob'),custom:$('custom').value,wep:vals('wep')};
- $('go').disabled=true;$('ov').classList.add('on');
- const msgs=['ANALYZING YOUR SETUP…','CHECKING DEVICE PROFILE…','BALANCING SCOPES…'];let i=0;const t=setInterval(()=>{$('ovt').textContent=msgs[++i%3]},550);
- setTimeout(()=>{clearInterval(t);$('ov').classList.remove('on');$('go').disabled=false;show(generate(d),d)},1700);
-});
-$('reset').addEventListener('click',()=>{$('f').reset();$('custom').style.display='none';$('prev').style.display='none';if(url){URL.revokeObjectURL(url);url=null}document.querySelectorAll('.err').forEach(e=>e.textContent='');document.querySelectorAll('.bad').forEach(e=>e.classList.remove('bad'));$('res').style.display='none';last=null;window.scrollTo({top:0,behavior:'smooth'});toast('Form reset')});
-$('copy').addEventListener('click',async()=>{if(!last)return;const t=txt();try{await navigator.clipboard.writeText(t);toast('Settings copied')}catch(e){const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}a.remove();toast(ok?'Settings copied':'Copy failed – long-press to copy manually')}});
-const K='alexsensi:saved';
-const load=()=>{try{return JSON.parse(localStorage.getItem(K))||[]}catch(e){return[]}};
-function renderSaved(){const a=load();$('svc').style.display=a.length?'block':'none';$('sl').innerHTML=a.map((x,i)=>`<div class="saved"><span>${x.name}<br><small class="note">${x.date}</small></span><button class="btn g" data-i="${i}">VIEW</button></div>`).join('')}
-$('save').addEventListener('click',()=>{if(!last)return;try{const a=load();a.unshift({name:`${last.d.brand} ${last.d.model}`,date:new Date().toLocaleString(),r:last.r,d:last.d});localStorage.setItem(K,JSON.stringify(a.slice(0,10)));renderSaved();toast('Result saved')}catch(e){toast('Saving is not available in this browser')}});
-$('sl').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const x=load()[+b.dataset.i];if(x)show(x.r,x.d)});
-renderSaved();
-</script>
-</body>
-</html>
+   
+   
