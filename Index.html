@@ -1,2 +1,356 @@
-# Alex-Sensi-AI
- AI-powered Free Fire Sensitivity Generator 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEAM FLAXY | GUILD BOT</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080811;
+  --card: #151421;
+  --purple: #a855f7;
+  --red: #8b1235;
+  --text: #f5f3ff;
+  --muted: #a5a0b8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+}
+
+/* HEADER */
+
+header {
+  min-height: 210px;
+  padding: 35px 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(ellipse at 20% 20%,
+    rgba(168,85,247,.23), transparent 55%),
+    radial-gradient(ellipse at 80% 80%,
+    rgba(139,18,53,.30), transparent 55%),
+    #100d19;
+
+  border-bottom: 1px solid #422448;
+}
+
+.logo {
+  font-size: clamp(27px, 7vw, 40px);
+  font-weight: 900;
+  letter-spacing: 4px;
+
+  background: linear-gradient(
+    90deg,
+    #d9a5ff,
+    #963dff,
+    #e04468
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  filter: drop-shadow(0 0 12px rgba(168,85,247,.55))
+          drop-shadow(0 0 15px rgba(139,18,53,.5));
+}
+
+.subtitle {
+  color: #bba9cc;
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-top: 12px;
+}
+
+.status {
+  margin-top: 18px;
+  padding: 7px 16px;
+  border: 1px solid #713e85;
+  border-radius: 30px;
+  color: #d9a5ff;
+  font-size: 11px;
+}
+
+/* MAIN */
+
+main {
+  max-width: 650px;
+  margin: auto;
+  padding: 22px 16px;
+}
+
+.welcome {
+  margin-bottom: 22px;
+}
+
+.welcome h2 {
+  font-size: 21px;
+  margin-bottom: 7px;
+}
+
+.welcome p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* GUILD INFO */
+
+.guild-info {
+  padding: 20px;
+  margin-bottom: 25px;
+
+  background: linear-gradient(
+    130deg,
+    #1d1430,
+    #17101f,
+    #250e1a
+  );
+
+  border: 1px solid #643c7c;
+  border-radius: 12px;
+
+  box-shadow: 0 0 16px rgba(168,85,247,.12);
+}
+
+.guild-info h3 {
+  color: #c58bff;
+  margin-bottom: 13px;
+}
+
+.guild-info p {
+  font-size: 13px;
+  margin-top: 10px;
+  color: #d8cce5;
+}
+
+/* SECTION */
+
+.section-title {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+/* CARDS */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid #302b43;
+  border-radius: 12px;
+  padding: 17px 12px;
+
+  min-width: 0;
+  transition: .2s;
+}
+
+.card:hover {
+  border-color: var(--purple);
+  box-shadow: 0 0 13px rgba(168,85,247,.18);
+}
+
+.icon {
+  font-size: 27px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--muted);
+  min-height: 34px;
+}
+
+/* BUTTON */
+
+.btn {
+  width: 100%;
+  padding: 11px 5px;
+  margin-top: 13px;
+
+  border: 2px solid #8745b7;
+  border-radius: 4px;
+
+  background: linear-gradient(
+    110deg,
+    #28143e,
+    #381323
+  );
+
+  color: #eddbff;
+  font-size: 11px;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn:active {
+  transform: scale(.96);
+  background: #462354;
+}
+
+/* ADMIN */
+
+.admin {
+  margin-top: 22px;
+  padding: 19px;
+
+  background: #17121f;
+  border: 1px solid #652b48;
+  border-radius: 12px;
+}
+
+.admin h3 {
+  color: #e89bb8;
+  margin-bottom: 12px;
+}
+
+.admin p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 25px 12px;
+  color: #827b96;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+/* MOBILE */
+
+@media(max-width:350px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .logo {
+    letter-spacing: 2px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1 class="logo">TEAM FLAXY</h1>
+  <p class="subtitle">FREE FIRE GUILD MANAGEMENT</p>
+  <span class="status">● SYSTEM ONLINE</span>
+</header>
+
+<main>
+
+  <section class="welcome">
+    <h2>Welcome, Nirmal 👑</h2>
+    <p>Your Guild. Your Rules. Your Legacy.</p>
+  </section>
+
+  <section class="guild-info">
+    <h3>⚡ GUILD INFORMATION</h3>
+    <p>Guild Name : Team flaxy</p>
+    <p>Guild Tag : FLAXY</p>
+    <p>Guild Admin : me nirmal</p>
+    <p>Guild Type : Single Guild</p>
+  </section>
+
+  <h2 class="section-title">⚡ GUILD CONTROL CENTER</h2>
+
+  <section class="cards">
+
+    <div class="card">
+      <div class="icon">👥</div>
+      <h3>Members</h3>
+      <p>Manage guild players and registration.</p>
+      <button class="btn"
+      onclick="showPage('Members')">
+      OPEN MEMBERS
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="icon">🏆</div>
+      <h3>Ranking</h3>
+      <p>Check player points and leaderboard.</p>
+      <button class="btn"
+      onclick="showPage('Ranking')">
+      OPEN RANKING
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚔️</div>
+      <h3>Tournament</h3>
+      <p>Manage matches and results.</p>
+      <button class="btn"
+      onclick="showPage('Tournament')">
+      OPEN TOURNAMENT
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="icon">🛡️</div>
+      <h3>Admin Panel</h3>
+      <p>Manage your guild control system.</p>
+      <button class="btn"
+      onclick="showPage('Admin')">
+      OPEN ADMIN
+      </button>
+    </div>
+
+  </section>
+
+  <section class="admin">
+    <h3>👑 GUILD OWNER</h3>
+    <p>Admin: me nirmal</p>
+    <p>Role: Owner</p>
+    <p>System: Active</p>
+  </section>
+
+</main>
+
+<footer>
+  TEAM FLAXY © 2026<br>
+  POWERED BY GUILD BOT
+</footer>
+
+<script>
+function showPage(page) {
+  alert(page + " module will be available soon!");
+}
+</script>
+
+</body>
+</html>
+ 
